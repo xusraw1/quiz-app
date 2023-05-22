@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Вход {% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Вход</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="button" class="btn btn-primary">Войти</button>
+                <button type="button" class="btn btn-outline-success"><b>Создать новый аккаунт</b></button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
