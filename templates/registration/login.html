@@ -10,7 +10,7 @@
             {{ form|crispy }}
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="submit" class="btn btn-primary">Войти</button>
-                <a href="#" class="btn btn-outline-success"><b>Создать новый аккаунт</b></a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-success"><b>Создать новый аккаунт</b></a>
             </div>
         </form>
     </div>
