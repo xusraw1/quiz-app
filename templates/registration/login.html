@@ -3,13 +3,14 @@
 {% block title %} Вход {% endblock %}
 {% block content %}
     <div class="container">
+        <br>
         <h1>Вход</h1>
         <form action="" method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <button type="button" class="btn btn-primary">Войти</button>
-                <button type="button" class="btn btn-outline-success"><b>Создать новый аккаунт</b></button>
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <a href="#" class="btn btn-outline-success"><b>Создать новый аккаунт</b></a>
             </div>
         </form>
     </div>

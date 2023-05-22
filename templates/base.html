@@ -22,11 +22,11 @@
 
             <div class="text-end">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="btn btn-outline-light me-2">Выход</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-danger me-1"><b>Выход</b></a>
                 {% else %}
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <a href="{% url 'login' %}" class="btn btn-outline-success">Войти</a>
-                        <a href="#" class="btn btn-outline-primary">Регистрация</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-success"><b>Войти</b></a>
+                        <a href="#" class="btn btn-outline-primary"><b>Регистрация</b></a>
                     </div>
                 {% endif %}
             </div>
@@ -37,8 +37,9 @@
 {% endblock %}
 
 <hr class="container">
-<p class="text-center text-body-secondary">Created by <b><a style="text-decoration: none"
+<p class="text-center text-body-secondary">Created by <b><a target="_blank" style="text-decoration: none"
                                                             href="https://www.linkedin.com/in/xusrav-maxmadjanov-80b614246/">Khusrav
     Makhmadjanov</a></b></p>
+<hr>
 </body>
-</html>
+</html>x
