@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 
-
 class Category(models.Model):
     ''' Класс Категорий, нужен для добавления категориев.
      Принимает один обьязательный отрибут при создании name '''

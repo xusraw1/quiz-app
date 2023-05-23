@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    Ответ
+{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <center>
+            {% if checktest.user_passed %}
+                <h1>Вы прошли тест!!!</h1>
+            {% else %}
+                <h1>К сожеления вы не прошли тест, чтобы пройти тест вам нужно набрать {{ checktest.test.percentage }}%
+                    процент от вопросов!</h1>
+            {% endif %}
+            <h2 class="mb-4">Вы прошли тест на {{ checktest.percentage }}%.</h2>
+        </center>
+        <div class="card-p-3">
+            {% for q in checktest.chekquestion_set.all %}
+                <div>
+                <h5>{{ forloop.counter }}. {{ q.question }}</h5>
+                {% if q.is_true %}
+                    <div class="answer p-2">
+                        <p>{{ q.given_answer }}</p>
+                        <p>A. {{ q.question.a }}</p>
+                        <p>B. {{ q.question.b }}</p>
+                        <p>C. {{ q.question.c }}</p>
+                        <p>D. {{ q.question.d }}</p>
+                    </div>
+                {% else %}
+                    <div class="answer p-2" style="background-color: rgba(255, 129, 129, 0.39);">
+                        <p>{{ q.given_answer }}</p>
+                        <p>A. {{ q.question.a }}</p>
+                        <p>B. {{ q.question.b }}</p>
+                        <p>C. {{ q.question.c }}</p>
+                        <p>D. {{ q.question.d }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <br>
+            <center>
+                <a href="{% url 'index' %}" class="btn btn-primary">На главную</a>
+            </center>
+        </div>
+{% endblock %}
