@@ -42,3 +42,25 @@ class Question(models.Model):
 
     def __str__(self):
         return str(self.question[:100])
+
+
+class ChekTest(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    finded_question = models.PositiveIntegerField(default=0)
+    user_passed = models.BooleanField(default=False)
+    percentage = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return str(self.student)
+
+
+class ChekQuestion(models.Model):
+    checktest = models.ForeignKey(ChekTest, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    given_answer = models.CharField(max_length=1, help_text='Например: A')
+    true_answer = models.CharField(max_length=1, help_text='Например: A')
+    is_true = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.checktest)
