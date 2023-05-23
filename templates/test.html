@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+    Тест
+{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="container">
+            <h3>{{ test.title }}</h3>
+            <form action="" class="card p-3" method="post">
+                {% csrf_token %}
+                {% for q in question %}
+                    <h5>{{ forloop.counter }}. {{ q.question }}</h5>
+                    <div class="form-chek">
+                        <input type="radio" value="a" required name="{{ q.id }}" class="form-chek-input"
+                               id="{{ q.id }}-a">
+                        <label for="{{ q.id }}-a">{{ q.a }}</label>
+                        <br>
+                        <input type="radio" value="b" name="{{ q.id }}" class="form-chek-input"
+                               id="{{ q.id }}-b">
+                        <label for="{{ q.id }}-b">{{ q.b }}</label>
+                        <br>
+                        <input type="radio" value="c" name="{{ q.id }}" class="form-chek-input"
+                               id="{{ q.id }}-c">
+                        <label for="{{ q.id }}-c">{{ q.c }}</label>
+                        <br>
+                        <input type="radio" value="d" name="{{ q.id }}" class="form-chek-input"
+                               id="{{ q.id }}-d">
+                        <label for="{{ q.id }}-d">{{ q.d }}</label>
+                        <br>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-success">Подтвердить</button>
+                <a href="{% url 'ready_to_test' test.pk %}"
+                   style="text-align: center; text-decoration: none; color: darkblue">Назад</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
