@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Ready
+{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <h3>Вы готовы к тесту | {{ test.title }}?</h3>
+        <p>
+            Подробно: Есть <strong>{{ test.question_set.all.count }}</strong> вопроса.
+            <br>И у вас есть <strong>{{ test.max_attempts }}</strong> попыток для того чтобы пройти его.
+        </p>
+        <p>Пройдите тест в течени <b>{{ test.start_date }} - {{ test.end_time }}</b> этого времени</p>.
+        <p>Автор: @<a href="#">{{ test.author }}</a></p>
+        <a href="#" class="btn btn-primary">Начать тест</a>
+        <a href="{% url 'index' %}" class="btn btn-outline-warning">Назад</a>
+    </div>
+{% endblock %}

@@ -1,6 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Test, Question
+from django.contrib.auth.decorators import login_required
+
+
+@login_required(login_url='login')
+def ready_to_test(request, pk):
+    test = get_object_or_404(Test, id=pk)
+    return render(request, 'ready_to_test.html', {'test': test})
 
 
 def sign_up(request):
@@ -14,4 +22,5 @@ def sign_up(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    tests = Test.objects.all()
+    return render(request, 'index.html', {'tests': tests})
