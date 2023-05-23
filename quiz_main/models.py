@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
 
 
 class Category(models.Model):
@@ -64,3 +66,22 @@ class ChekQuestion(models.Model):
 
     def __str__(self):
         return str(self.checktest)
+
+
+@receiver(pre_save, sender=ChekQuestion)
+def chek_answer(sender, instance, *args, **kwargs):
+    if instance.given_answer == instance.true_answer:
+        instance.is_true = True
+
+
+@receiver(pre_save, sender=ChekTest)
+def chek_test(sender, instance, *args, **kwargs):
+    chektest = instance
+    chektest.finded_question = ChekQuestion.objects.filter(checktest=chektest, is_true=True).count()
+    print(chektest.finded_question)
+    try:
+        chektest.percentage = int(chektest.finded_question) * 100 // ChekQuestion.objects.filter(checktest=chektest).count()
+        if chektest.test.percentage <= chektest.percentage:
+            chektest.user_passed = True
+    except:
+        pass

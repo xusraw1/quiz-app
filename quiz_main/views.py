@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Test, Question
+from .models import Test, Question, ChekTest, ChekQuestion
 from django.contrib.auth.decorators import login_required
 
 
@@ -10,13 +10,13 @@ def test(request, pk):
     test = get_object_or_404(Test, id=pk)
     questions = Question.objects.filter(test=test)
     if request.method == 'POST':
+        checktest = ChekTest.objects.create(student=request.user, test=test, )
         for question in questions:
             given_answer = request.POST[str(question.id)]
-            print(given_answer)
-            if question.T == given_answer:
-                print(True)
-            else:
-                print(False)
+            ChekQuestion.objects.create(checktest=checktest, question=question, given_answer=given_answer,
+                                        true_answer=question.T)
+        checktest.save()
+
     context = {
         'question': questions,
         'test': test,

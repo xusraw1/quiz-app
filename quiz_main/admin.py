@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Question, Test
+from .models import Category, Question, Test, ChekTest, ChekQuestion
 
 
 # Register your models here.
@@ -16,3 +16,6 @@ class TestAdmin(admin.ModelAdmin):
 admin.site.register(Question)
 admin.site.register(Category)
 admin.site.register(Test, TestAdmin)
+
+admin.site.register(ChekTest)
+admin.site.register(ChekQuestion)
