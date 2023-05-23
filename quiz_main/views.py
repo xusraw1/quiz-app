@@ -68,23 +68,29 @@ def new_test(req):
     if req.method == 'POST':
         form = TestForm(req.POST)
         if form.is_valid():
-            pk = form.save(req)
-            return redirect('new_question', pk)
+            test_id = form.save(req)
+            return redirect('new_question', test_id)
     return render(req, 'newtest.html', {'form': form})
 
 
 @login_required(login_url='login')
-def new_question(req, pk):
-    test = get_object_or_404(Test, id=pk)
+def new_question(req, test_id):
+    test = get_object_or_404(Test, id=test_id)
     if test.author == req.user:
         form = QuestionForm()
         if req.method == 'POST':
             form = QuestionForm(req.POST)
             if form.is_valid():
-                form.save(pk)
-                if form.cleaned_data['submit']:
+                form.save(test_id)
+                if form.cleaned_data['submit_and_exit']:
                     return redirect('profile', req.user.id)
-                return redirect('new_question', pk)
+                return redirect('new_question', test_id)
         return render(req, 'newquestion.html', {'form': form, 'test': test})
     else:
         return HttpResponse("Что то пошло не так!!!")
+
+
+@login_required(login_url='login')
+def profile(req, user_id):
+    user = get_object_or_404(User, id=user_id)
+    return render(req, 'profile.html', {'user': user})

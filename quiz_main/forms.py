@@ -19,10 +19,10 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ('question', 'a', 'b', 'c', 'd', 'T')
 
-    submit = forms.BooleanField(required=False)
+    submit_and_exit = forms.BooleanField(required=False)
 
-    def save(self, request, commit=True):
+    def save(self, test_id, commit=True):
         question = self.instance
-        question.author = Test.objects.get(id=pk)
+        question.test = Test.objects.get(id=test_id)
         super().save(commit)
         return question

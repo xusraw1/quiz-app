@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="content mt-5">
+            <h3>Профиль - {{ user }}</h3>
+            <div class="row">
+                <div class="card p-2 col-5 m-4">
+                    <h6>Созданные тесты</h6>
+                    {% for i in user.test_set.all %}
+                        <p>{{ i.title }}</p>
+                        <small class="d-inline">
+                            {{ i.chektest_set.all.count }} попыток | {{ i.question_set.all.count }} вопроса
+                            <a href="{% url 'ready_to_test' i.pk %}">Попробовать</a>
+                            {% if user == request.user %}
+                                <a href="{% url 'new_question' i.id %}">Создать вопрос</a>
+                            {% endif %}
+                        </small>
+                    {% endfor %}
+                    <hr>
+                </div>
+                <div class="col-5 m-4 p-2 card">
+                    <h6>Тесты</h6>
+                    {% for i in user.chektest_set.all %}
+                        <p>{{ i.test.title }}</p>
+                        <small class="d-inline">
+                            <a href="{% url 'checktest' i.id %}">Подробно</a> | {{ i.percentage }}% |
+                            <a href="{% url 'ready_to_test' i.pk %}">Попробовать</a>
+                        </small>
+                    {% endfor %}
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
