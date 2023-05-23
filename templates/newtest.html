@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Создать {% endblock %}
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>Новый тест</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="{% url 'index' %}" class="btn btn-outline-success"><b>На главную</b></a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

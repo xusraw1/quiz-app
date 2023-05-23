@@ -57,3 +57,34 @@ def sign_up(request):
 def index(request):
     tests = Test.objects.all()
     return render(request, 'index.html', {'tests': tests})
+
+
+from .forms import TestForm, QuestionForm
+
+
+@login_required(login_url='login')
+def new_test(req):
+    form = TestForm()
+    if req.method == 'POST':
+        form = TestForm(req.POST)
+        if form.is_valid():
+            pk = form.save(req)
+            return redirect('new_question', pk)
+    return render(req, 'newtest.html', {'form': form})
+
+
+@login_required(login_url='login')
+def new_question(req, pk):
+    test = get_object_or_404(Test, id=pk)
+    if test.author == req.user:
+        form = QuestionForm()
+        if req.method == 'POST':
+            form = QuestionForm(req.POST)
+            if form.is_valid():
+                form.save(pk)
+                if form.cleaned_data['submit']:
+                    return redirect('profile', req.user.id)
+                return redirect('new_question', pk)
+        return render(req, 'newquestion.html', {'form': form, 'test': test})
+    else:
+        return HttpResponse("Что то пошло не так!!!")
